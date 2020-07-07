@@ -6,8 +6,16 @@ var app = express()
 
 var users = [
     { id: 1, name: "Levi", email: "nyiro.levente@gmail.com", password: "Valami12" },
-    { id: 2, name: "Zsombor", email: "zsombor@gmail.com", password: "Valami12" }
+    { id: 2, name: "Valami", email: "valami@gmail.com", password: "Valami12" }
 ]
+
+var {
+    PORT = 8080,
+    NODE_ENV = "development",
+    SESS_SECRET = "ssh!quiet\'asecret!"
+} = process.env
+
+var IN_PROD = NODE_ENV === "production"
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -15,11 +23,11 @@ app.use(session({
     name: "session",
     resave: false,
     saveUninitialized: false,
-    secret: "ssh!quiet,it\'asecret!",
+    secret: SESS_SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 * 2,
         sameSite: true,
-        secure: false
+        secure: IN_PROD
     }
 }))
 
@@ -34,34 +42,31 @@ var redirectHome = (req, res, next) => {
 }
 
 app.get("/", (req, res) => {
-    //console.log(req.session)
-    //var userId = 1
-    console.log(userId)
+    var { userId } = req.session
     res.send(`
         <h1>Welcome!</h1>
         ${userId ? `
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>` : `
         <a href="/home">Home</a>
-        <form method="POST action="/logout">
+        <form method="POST" action="/logout">
             <button>Logout</button>
         </form>
+        ` : `
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
         `}
-
-
-
     `)
 })
 
 app.use((req, res, next) => {
-    if (req.session)
+    var { userId } = req.session
+    if (userId)
         res.locals.user = users.find(user => user.id === userId)
     next()
 })
 
 app.get("/home", redirectLogin, (req, res) => {
+    console.log(users)
     var { user } = res.locals
-    console.log(req.session.id)
     res.send(`
         <h1>Home</h1>
         <a href="/">Main</a>
@@ -69,11 +74,8 @@ app.get("/home", redirectLogin, (req, res) => {
             <li>Name: ${user.name}</li>
             <li>Email: ${user.email}</li>
         </ul>
-    `)
-})
 
-app.get("/profile", redirectLogin, (req, res) => {
-    var { user } = res.locals
+    `)
 })
 
 app.get("/login", redirectHome, (req, res) => {
@@ -104,7 +106,8 @@ app.get("/register", redirectHome, (req, res) => {
 app.post("/login", redirectHome, (req, res) => {
     var { email, password } = req.body
     if (email && password) {
-        if (users.find(user => user.email === email && user.password === password)) {
+        var user = users.find(user => user.email === email && user.password === password)
+        if (user) {
             req.session.userId = user.id
             return res.redirect("/home")
         }
@@ -116,7 +119,8 @@ app.post("/register", redirectHome, (req, res) => {
     var { name, email, password } = req.body
 
     if (name && email && password) {
-        if (users.some(user => user.email === email)) {
+        var exists = users.some(user => user.email === email)
+        if (!exists) {
             var user = {
                 id: users.length + 1,
                 name,
@@ -135,7 +139,7 @@ app.post("/logout", redirectLogin, (req, res) => {
     req.session.destroy(err => {
         if (err) return res.redirect("/home")
         res.clearCookie("session")
-        res.redirect("/login")
+        res.redirect("/home")
     })
 })
 
