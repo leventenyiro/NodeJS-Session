@@ -65,7 +65,6 @@ app.use((req, res, next) => {
 })
 
 app.get("/home", redirectLogin, (req, res) => {
-    console.log(users)
     var { user } = res.locals
     res.send(`
         <h1>Home</h1>
@@ -78,7 +77,7 @@ app.get("/home", redirectLogin, (req, res) => {
     `)
 })
 
-app.get("/login", redirectHome, (req, res) => {
+app.get("/login", (req, res) => {
     res.send(`
         <h1>Login</h1>
         <form method="POST" action="/login">
@@ -94,9 +93,9 @@ app.get("/register", redirectHome, (req, res) => {
     res.send(`
         <h1>Register</h1>
         <form method="POST" action="/register">
-            <input type="name" placeholder="Name" required>
+            <input type="name" name="name" placeholder="Name" required>
             <input type="email" name="email" placeholder="Email" required>
-            <input name="password" name="password" placeholder="Password" required>
+            <input type="password" name="password" placeholder="Password" required>
             <input type="submit">
         </form>
         <a href="/login">Login</a>
@@ -123,9 +122,9 @@ app.post("/register", redirectHome, (req, res) => {
         if (!exists) {
             var user = {
                 id: users.length + 1,
-                name,
-                email,
-                password
+                name: name,
+                email: email,
+                password: password
             }
             users.push(user)
             req.session.userId = user.id
