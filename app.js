@@ -2,7 +2,6 @@ var express = require("express")
 var session = require("express-session")
 var bodyParser = require("body-parser")
 var cors = require("cors")
-var cookieParser = require("cookie-parser")
 var app = express()
 
 var users = [
@@ -12,7 +11,6 @@ var users = [
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(cookieParser())
 app.use(cors({credentials: true, origin: "http://localhost"}))
 app.use(session({
     name: "session",
@@ -21,12 +19,6 @@ app.use(session({
     resave: true,
     unset: 'destroy',
     cookie: {
-        /*path: "/",
-        httpOnly: true,
-        secure: false,
-        sameSite: true,
-        maxAge: null,
-        signed: true*/
         maxAge: null
     }
 }))
@@ -36,18 +28,19 @@ app.post("/login", (req, res) => {
     if (user) {
         req.session.userId = user.id
         res.end()
+    } else {
+        res.statusCode = 401
+        res.end()
     }
 })
 
 app.get("/login", (req, res) => {
     var user = users.find(user => user.id === req.session.userId)
-    user == undefined ? console.log("Sikertelen") : console.log("Sikeres")
+    //user == undefined ? console.log("Sikertelen") : console.log("Sikeres")
     res.json(user)
 })
 
 app.post("/logout", (req, res) => {
-    /*req.session.destroy()
-    res.send()*/
     req.session.destroy((err) => {
         if (err) throw err
         res.clearCookie("session")

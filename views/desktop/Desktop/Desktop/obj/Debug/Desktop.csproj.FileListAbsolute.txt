@@ -1,0 +1,14 @@
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\bin\Debug\Desktop.exe.config
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\bin\Debug\Desktop.exe
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\bin\Debug\Newtonsoft.Json.dll
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\obj\Debug\Desktop.csprojAssemblyReference.cache
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\obj\Debug\Desktop.FormInner.resources
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\obj\Debug\Desktop.Login.resources
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\obj\Debug\Desktop.Properties.Resources.resources
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\obj\Debug\Desktop.csproj.GenerateResource.cache
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\obj\Debug\Desktop.csproj.CoreCompileInputs.cache
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\obj\Debug\Desktop.csproj.CopyComplete
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\obj\Debug\Desktop.exe
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\obj\Debug\Desktop.pdb
+C:\Users\nyiro\Desktop\NodeJS-Session\views\desktop\Desktop\Desktop\bin\Debug\Desktop.pdb
