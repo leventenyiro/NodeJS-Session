@@ -5,7 +5,7 @@ class Database {
             host: "localhost",
             user: "root",
             password: "",
-            database: "user"
+            database: "restapi"
         })
         this.hashedId = ""
     }
