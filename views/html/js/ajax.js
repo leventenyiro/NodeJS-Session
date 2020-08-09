@@ -3,6 +3,8 @@ async function home() {
         method: "GET",
         credentials: "include"
     }).then(user => user.json())
+    if (user.length = 0)
+        window.location = "login.html"
     document.getElementById("email").innerHTML = user.email
     document.getElementById("name").innerHTML = user.name
 }
@@ -24,4 +26,12 @@ async function login() {
     } else {
         alert("Rossz")
     }
+}
+
+async function logout() {
+    await fetch(`http://localhost:8080/logout`, {
+        method: "POST",
+        credentials: "include"
+    })
+    window.location = "login.html"
 }
